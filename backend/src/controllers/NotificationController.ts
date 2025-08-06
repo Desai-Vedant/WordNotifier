@@ -1,6 +1,6 @@
 import express from 'express';
-import Notification from '../models/Notification.ts';
-import type {IUser} from '../models/User.ts';
+import Notification from '../models/Notification';
+import type {IUser} from '../models/User';
 
 interface AuthRequest extends express.Request {
   user?: IUser;

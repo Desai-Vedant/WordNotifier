@@ -4,13 +4,13 @@
   "description": "Backend for Word Notification App",
   "license": "ISC",
   "author": "",
-  "type": "module",
   "main": "./index.ts",
   "scripts": {
     "test": "dev",
     "dev": "ts-node --project tsconfig.json ./index.ts",
     "notifications": "node dist/notifications.js",
-    "build": "tsc",
+    "build": "rm -rf dist && tsc",
+    "start": "node dist/index.js",
     "lint": "eslint . --ext .ts",
     "format": "prettier --write ."
   },

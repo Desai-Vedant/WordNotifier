@@ -1,10 +1,10 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import connectDB from './src/config/database.ts';
-import userRoutes from './src/routes/userRoutes.ts';
-import notificationRoutes from './src/routes/notificationRoutes.ts';
-import startNotificationService from './src/notificationService.ts';
+import connectDB from './config/database';
+import userRoutes from './routes/userRoutes';
+import notificationRoutes from './routes/notificationRoutes';
+import startNotificationService from './notificationService';
 
 dotenv.config();
 

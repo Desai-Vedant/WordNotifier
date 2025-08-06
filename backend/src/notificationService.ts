@@ -2,9 +2,9 @@ import dotenv from 'dotenv';
 import cron from 'node-cron';
 import mongoose from 'mongoose';
 import {exec} from 'child_process'
-import Notification from './models/Notification.ts';
-import EmailService from './services/EmailService.ts';
-import './models/User.ts';
+import Notification from './models/Notification';
+import EmailService from './services/EmailService';
+import './models/User';
 
 dotenv.config();
 

@@ -1,8 +1,8 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import User from '../models/User.ts';
-import EmailService from '../services/EmailService.ts';
+import User from '../models/User';
+import EmailService from '../services/EmailService';
 
 
 dotenv.config();

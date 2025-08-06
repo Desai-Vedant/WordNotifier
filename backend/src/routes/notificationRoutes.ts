@@ -1,6 +1,6 @@
 import express from 'express';
-import * as NotificationController from '../controllers/NotificationController.ts';
-import auth from '../middleware/auth.ts';
+import * as NotificationController from '../controllers/NotificationController';
+import auth from '../middleware/auth';
 
 const router = express.Router();
 
