@@ -14,7 +14,7 @@ const Navbar = () => {
         <nav className="navbar">
             <div className="container">
                 <Link to="/" className="navbar-brand">
-                    Japanese Learning
+                    Word Notifier
                 </Link>
                 <div className="nav-links">
                     {isAuthenticated ? (
@@ -33,7 +33,7 @@ const Navbar = () => {
                     )}
                 </div>
             </div>
-        </nav>
+        </nav >
     );
 };
 
