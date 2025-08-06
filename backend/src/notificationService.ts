@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import cron from 'node-cron';
 import mongoose from 'mongoose';
+import {exec} from 'child_process'
 import Notification from './models/Notification.ts';
 import EmailService from './services/EmailService.ts';
 import './models/User.ts';
@@ -50,4 +51,22 @@ async function sendNotifications() {
 // Schedule the notification check every minute
 cron.schedule('* * * * *', sendNotifications);
 
-console.log('Notification service started');
+
+async function startNotificationService() {
+  try {
+    // Check if the notification service is already running
+    const { stdout } = await exec('pgrep -f notificationService.ts');
+    if (stdout) {
+      console.log('Notification service is already running.');
+      return;
+    }
+    
+    // Start the notification service
+    console.log('Starting notification service...');
+    await exec('node backend/src/notificationService.ts');
+  } catch (error) {
+    console.error('Error starting notification service:', error);
+  }
+}
+
+export default startNotificationService;

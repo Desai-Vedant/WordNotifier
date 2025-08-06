@@ -4,6 +4,7 @@ import cors from 'cors';
 import connectDB from './src/config/database.ts';
 import userRoutes from './src/routes/userRoutes.ts';
 import notificationRoutes from './src/routes/notificationRoutes.ts';
+import startNotificationService from './src/notificationService.ts';
 
 dotenv.config();
 
@@ -18,6 +19,11 @@ app.use(express.urlencoded({ extended: true }));
 
 // Connect to MongoDB
 connectDB();
+
+// Start the notification service
+startNotificationService().catch(err => {
+  console.error('Error in notification service:', err);
+});
 
 // Routes
 app.use('/api/users', userRoutes);
