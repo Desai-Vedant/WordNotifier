@@ -1,0 +1,22 @@
+{
+  "name": "wordnotifier",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/Desai-Vedant/WordNotifier#readme",
+  "bugs": {
+    "url": "https://github.com/Desai-Vedant/WordNotifier/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Desai-Vedant/WordNotifier.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install": "concurrently \"cd frontend && npm install\" \"cd backend && npm install\"",
+    "dev": "concurrently \"cd frontend && run dev\" \"cd backend && npm run dev\""
+  }
+}
