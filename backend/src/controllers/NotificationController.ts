@@ -1,10 +1,23 @@
 import express from 'express';
 import Notification from '../models/Notification';
 import type {IUser} from '../models/User';
+import { sendNotifications } from '../services/notificationService';
 
 interface AuthRequest extends express.Request {
   user?: IUser;
 }
+
+export const sendReminders = async (req: AuthRequest, res: express.Response) => {
+  try {
+    // Call the sendNotifications function to send reminders
+    const result = await sendNotifications();
+
+    return res.status(200).json({ message: 'Reminders sent successfully', count: result });
+  } catch (error) {
+    console.error('Error sending reminders:', error);
+    res.status(500).json({ error: 'Error sending reminders' });
+  }
+};
 
 export const createNotification = async (req: AuthRequest, res: express.Response) => {
   try {

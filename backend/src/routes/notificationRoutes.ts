@@ -4,12 +4,11 @@ import auth from '../middleware/auth';
 
 const router = express.Router();
 
-// All routes are protected by auth middleware
-router.use(auth);
+router.get('/send-reminders', NotificationController.sendReminders);
 
-router.post('/', NotificationController.createNotification);
-router.get('/', NotificationController.getUserNotifications);
-router.patch('/:id/status', NotificationController.updateNotificationStatus);
-router.delete('/:id', NotificationController.deleteNotification);
+router.post('/', auth, NotificationController.createNotification);
+router.get('/', auth, NotificationController.getUserNotifications);
+router.patch('/:id/status', auth, NotificationController.updateNotificationStatus);
+router.delete('/:id', auth, NotificationController.deleteNotification);
 
 export default router;

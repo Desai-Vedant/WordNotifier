@@ -7,7 +7,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "dev",
-    "dev": "ts-node --project tsconfig.json ./index.ts",
+    "dev": "ts-node --project tsconfig.json ./src/index.ts",
     "notifications": "node dist/notifications.js",
     "build": "rm -rf dist && tsc",
     "start": "node dist/index.js",

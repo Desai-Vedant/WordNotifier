@@ -17,6 +17,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "install": "concurrently \"cd frontend && npm install\" \"cd backend && npm install\"",
-    "dev": "concurrently \"cd frontend && run dev\" \"cd backend && npm run dev\""
+    "dev": "concurrently \"cd frontend && npm run dev\" \"cd backend && npm run dev\""
   }
 }
