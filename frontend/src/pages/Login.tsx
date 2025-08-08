@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { toast } from 'react-toastify';
 
@@ -26,33 +26,59 @@ const Login = () => {
     };
 
     return (
-        <div className="form-container">
-            <h2>Login</h2>
-            <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="email">Email</label>
-                    <input
-                        type="email"
-                        id="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
+        <div className="auth-container">
+            <div className="auth-card">
+                <div className="auth-header">
+                    <h2>Welcome Back</h2>
+                    <p>Sign in to continue learning Japanese</p>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="password">Password</label>
-                    <input
-                        type="password"
-                        id="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
+                <form onSubmit={handleSubmit} className="auth-form">
+                    <div className="form-group">
+                        <label htmlFor="email">
+                            <i className="fas fa-envelope"></i>
+                            Email Address
+                        </label>
+                        <input
+                            type="email"
+                            id="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="Enter your email"
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="password">
+                            <i className="fas fa-lock"></i>
+                            Password
+                        </label>
+                        <input
+                            type="password"
+                            id="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder="Enter your password"
+                            required
+                        />
+                    </div>
+                    <button type="submit" className="btn btn-primary btn-block" disabled={isLoading}>
+                        {isLoading ? (
+                            <>
+                                <i className="fas fa-spinner fa-spin"></i>
+                                Signing in...
+                            </>
+                        ) : (
+                            <>
+                                <i className="fas fa-sign-in-alt"></i>
+                                Sign In
+                            </>
+                        )}
+                    </button>
+                </form>
+                <div className="auth-footer">
+                    <p>Don't have an account? <Link to="/signup">Sign Up</Link></p>
                 </div>
-                <button type="submit" className="btn" disabled={isLoading}>
-                    {isLoading ? 'Loading...' : 'Login'}
-                </button>
-            </form>
+            </div>
         </div>
     );
 };

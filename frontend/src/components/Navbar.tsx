@@ -1,5 +1,6 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import '../styles/Navbar.css';
 
 const Navbar = () => {
     const { isAuthenticated, logout } = useAuth();
@@ -12,28 +13,38 @@ const Navbar = () => {
 
     return (
         <nav className="navbar">
-            <div className="container">
-                <Link to="/" className="navbar-brand">
-                    Word Notifier
-                </Link>
-                <div className="nav-links">
+            <div className="nav-container">
+                <div className="navbar-brand">
+                    <h1>Word Notifier</h1>
+                </div>
+                <div className="nav-controls">
                     {isAuthenticated ? (
-                        <>
-                            <Link to="/dashboard">Dashboard</Link>
-                            <Link to="/notifications">Notifications</Link>
-                            <button onClick={handleLogout} className="btn btn-secondary">
-                                Logout
-                            </button>
-                        </>
+                        <button
+                            onClick={handleLogout}
+                            className="logout-button"
+                            aria-label="Logout"
+                        >
+                            <i className="fas fa-sign-out-alt"></i>
+                        </button>
                     ) : (
-                        <>
-                            <Link to="/login">Login</Link>
-                            <Link to="/signup">Sign Up</Link>
-                        </>
+                        <div className="auth-buttons">
+                            <button
+                                onClick={() => navigate('/login')}
+                                className="login-button"
+                            >
+                                Login
+                            </button>
+                            <button
+                                onClick={() => navigate('/signup')}
+                                className="signup-button"
+                            >
+                                Sign Up
+                            </button>
+                        </div>
                     )}
                 </div>
             </div>
-        </nav >
+        </nav>
     );
 };
 
