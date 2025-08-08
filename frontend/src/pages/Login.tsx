@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { toast } from 'react-toastify';
+import '../styles/Auth.css';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -16,10 +17,10 @@ const Login = () => {
 
         try {
             await login(email, password);
-            toast.success('Login successful!');
-            navigate('/dashboard');
+            toast.success('Welcome back!');
+            navigate('/');
         } catch (error: any) {
-            toast.error(error.response?.data?.error || 'Login failed');
+            toast.error(error.response?.data?.error || 'Invalid credentials');
         } finally {
             setIsLoading(false);
         }
@@ -29,54 +30,38 @@ const Login = () => {
         <div className="auth-container">
             <div className="auth-card">
                 <div className="auth-header">
-                    <h2>Welcome Back</h2>
-                    <p>Sign in to continue learning Japanese</p>
+                    <h2>Welcome</h2>
+                    <p>Sign in to your account</p>
                 </div>
                 <form onSubmit={handleSubmit} className="auth-form">
                     <div className="form-group">
-                        <label htmlFor="email">
-                            <i className="fas fa-envelope"></i>
-                            Email Address
-                        </label>
                         <input
                             type="email"
                             id="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            placeholder="Enter your email"
+                            placeholder="Email"
                             required
+                            autoComplete="email"
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="password">
-                            <i className="fas fa-lock"></i>
-                            Password
-                        </label>
                         <input
                             type="password"
                             id="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            placeholder="Enter your password"
+                            placeholder="Password"
                             required
+                            autoComplete="current-password"
                         />
                     </div>
-                    <button type="submit" className="btn btn-primary btn-block" disabled={isLoading}>
-                        {isLoading ? (
-                            <>
-                                <i className="fas fa-spinner fa-spin"></i>
-                                Signing in...
-                            </>
-                        ) : (
-                            <>
-                                <i className="fas fa-sign-in-alt"></i>
-                                Sign In
-                            </>
-                        )}
+                    <button type="submit" className="auth-button" disabled={isLoading}>
+                        {isLoading ? 'Signing in...' : 'Sign in'}
                     </button>
                 </form>
                 <div className="auth-footer">
-                    <p>Don't have an account? <Link to="/signup">Sign Up</Link></p>
+                    <p>New here? <Link to="/signup">Create account</Link></p>
                 </div>
             </div>
         </div>

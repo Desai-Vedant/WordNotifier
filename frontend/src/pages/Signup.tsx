@@ -1,106 +1,70 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { toast } from 'react-toastify';
+import '../styles/Auth.css';
 
 const Signup = () => {
-    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [verificationCode, setVerificationCode] = useState('');
-    const [showVerification, setShowVerification] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-
-    const { signup, verifyEmail } = useAuth();
+    const { signup } = useAuth();
     const navigate = useNavigate();
 
-    const handleSignup = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
 
         try {
-            await signup(name, email, password);
-            toast.success('Please check your email for verification code');
-            setShowVerification(true);
+            await signup(email, password);
+            toast.success('Account created successfully!');
+            navigate('/');
         } catch (error: any) {
-            toast.error(error.response?.data?.error || 'Signup failed');
-        } finally {
-            setIsLoading(false);
-        }
-    };
-
-    const handleVerification = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setIsLoading(true);
-
-        try {
-            await verifyEmail(email, verificationCode);
-            toast.success('Email verified successfully!');
-            navigate('/login');
-        } catch (error: any) {
-            toast.error(error.response?.data?.error || 'Verification failed');
+            toast.error(error.response?.data?.error || 'Could not create account');
         } finally {
             setIsLoading(false);
         }
     };
 
     return (
-        <div className="form-container">
-            <h2>Sign Up</h2>
-            {!showVerification ? (
-                <form onSubmit={handleSignup}>
+        <div className="auth-container">
+            <div className="auth-card">
+                <div className="auth-header">
+                    <h2>Get Started</h2>
+                    <p>Create your account</p>
+                </div>
+                <form onSubmit={handleSubmit} className="auth-form">
                     <div className="form-group">
-                        <label htmlFor="name">Name</label>
-                        <input
-                            type="text"
-                            id="name"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="email">Email</label>
                         <input
                             type="email"
                             id="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            placeholder="Email"
                             required
+                            autoComplete="email"
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="password">Password</label>
                         <input
                             type="password"
                             id="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                            placeholder="Password"
                             required
                             minLength={6}
+                            autoComplete="new-password"
                         />
                     </div>
-                    <button type="submit" className="btn" disabled={isLoading}>
-                        {isLoading ? 'Loading...' : 'Sign Up'}
+                    <button type="submit" className="auth-button" disabled={isLoading}>
+                        {isLoading ? 'Creating account...' : 'Create account'}
                     </button>
                 </form>
-            ) : (
-                <form onSubmit={handleVerification}>
-                    <div className="form-group">
-                        <label htmlFor="verificationCode">Verification Code</label>
-                        <input
-                            type="text"
-                            id="verificationCode"
-                            value={verificationCode}
-                            onChange={(e) => setVerificationCode(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <button type="submit" className="btn" disabled={isLoading}>
-                        {isLoading ? 'Loading...' : 'Verify Email'}
-                    </button>
-                </form>
-            )}
+                <div className="auth-footer">
+                    <p>Already have an account? <Link to="/login">Sign in</Link></p>
+                </div>
+            </div>
         </div>
     );
 };

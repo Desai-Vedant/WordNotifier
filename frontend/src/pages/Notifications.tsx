@@ -14,7 +14,6 @@ interface Notification {
 const Notifications = () => {
     const [notifications, setNotifications] = useState<Notification[]>([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [isFormVisible, setIsFormVisible] = useState(false);
     const [newNotification, setNewNotification] = useState({
         japaneseWord: '',
         englishMeaning: '',

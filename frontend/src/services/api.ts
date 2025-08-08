@@ -16,13 +16,11 @@ api.interceptors.request.use((config) => {
 });
 
 export const authService = {
-  signup: async (data: { name: string; email: string; password: string }) => {
+  signup: async (data: { email: string; password: string }) => {
     const response = await api.post('/users/signup', data);
-    return response.data;
-  },
-
-  verifyEmail: async (data: { email: string; verificationCode: string }) => {
-    const response = await api.post('/users/verify-email', data);
+    if (response.data.token) {
+      localStorage.setItem('token', response.data.token);
+    }
     return response.data;
   },
 
@@ -36,17 +34,7 @@ export const authService = {
 
   logout: () => {
     localStorage.removeItem('token');
-  },
-
-  sendOTP: async (email: string) => {
-    const response = await api.post('/users/send-otp', { email });
-    return response.data;
-  },
-
-  verifyOTP: async (data: { email: string; otp: string }) => {
-    const response = await api.post('/users/verify-otp', data);
-    return response.data;
-  },
+  }
 };
 
 export const notificationService = {
